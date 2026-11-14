@@ -2,30 +2,116 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Radby Sounds — seu espaço para descobrir e ouvir música.">
+<meta name="description" content="Radby Sounds — ouça música direto no navegador, faça download e baixe o app Android. Seu som, sua experiência.">
 <meta name="theme-color" content="#0b0b14">
 <meta name="google-site-verification" content="lOJiF7dAwGjrRkQ28Y_1zUUqffUHfURNzZer7oGh4CE">
 <link rel="canonical" href="https://radby-sounds.web.app/">
-<title>Radby Sounds - Seu som. Sua experiência.</title><link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Radby Sounds">
+<meta property="og:title" content="Radby Sounds - Seu som. Sua experiência.">
+<meta property="og:description" content="Ouça música direto no navegador e baixe o app Android.">
+<meta property="og:url" content="https://radby-sounds.web.app/">
+<meta property="og:image" content="https://radby-sounds.web.app/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Radby Sounds - Seu som. Sua experiência.">
+<meta name="twitter:description" content="Ouça música direto no navegador e baixe o app Android.">
+<meta name="twitter:image" content="https://radby-sounds.web.app/assets/og.png">
+
+<title>Radby Sounds - Seu som. Sua experiência.</title>
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/player.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Radby Sounds",
+  "operatingSystem": "Android",
+  "applicationCategory": "MultimediaApplication",
+  "softwareVersion": "2.0.0",
+  "url": "https://radby-sounds.web.app/",
+  "image": "https://radby-sounds.web.app/assets/og.png",
+  "description": "Aplicativo de musica com entrada com Google e backup no Google Drive. Web player tambem disponivel no site.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }
+}
+</script>
 </head>
 <body>
-<header class="nav"><a class="brand" href="index.html"><img src="assets/logo.svg" alt="" width="38" height="38"><span>Radby <b>Sounds</b></span></a><nav><a href="#sobre">Sobre</a><a href="privacy.html">Privacidade</a><a href="terms.html">Termos</a></nav></header>
+<header class="nav"><a class="brand" href="index.html"><img src="assets/logo.svg" alt="" width="38" height="38"><span>Radby <b>Sounds</b></span></a><nav><a href="#player">Ouvir</a><a href="#sobre">Sobre</a><a href="#app">App</a><a href="privacy.html">Privacidade</a><a href="terms.html">Termos</a></nav></header>
 <main>
 <section class="hero">
 <div class="eyebrow">MÚSICA • DESCOBERTA • EXPERIÊNCIA</div>
 <h1>Seu som.<br><span>Sua experiência.</span></h1>
-<p>Conheça o Radby Sounds, um aplicativo em desenvolvimento para reunir recursos de reprodução e descoberta musical em um só lugar.</p>
-<div class="actions"><a class="button primary" href="https://raw.githubusercontent.com/davibezerranunes-lab/radby-sounds-site/main/radby-sounds.apk" download>Baixar aplicativo</a><a class="button secondary" href="#sobre">Conhecer o aplicativo</a><a class="button secondary" href="privacy.html">Política de privacidade</a></div>
-<div class="note">Este site é a página informativa do aplicativo Radby Sounds.</div>
+<p>Conheça o Radby Sounds: ouça músicas direto aqui no navegador, faça download e leve o aplicativo Android com você.</p>
+<div class="actions"><a class="button primary" href="#player">Ouvir agora</a><a class="button secondary" href="https://raw.githubusercontent.com/davibezerranunes-lab/radby-sounds-site/main/radby-sounds.apk" download>Baixar aplicativo</a><a class="button secondary" href="#sobre">Conhecer o app</a></div>
+<div class="note">Web player gratuito — sem cadastro. O aplicativo Android requer Android 8.0 ou superior.</div>
 </section>
+
+<section class="player-section" id="player">
+<div class="eyebrow">WEB PLAYER</div>
+<h2>Ouça agora, <span>direto no site</span></h2>
+<div class="panel player">
+  <div class="np">
+    <div class="np-cover"></div>
+    <div class="np-meta">
+      <div class="np-title" id="np-title">Radby Sounds</div>
+      <div class="np-artist" id="np-artist">Selecione uma faixa</div>
+    </div>
+    <a class="np-dl" id="np-dl" href="music/demo.wav" download>Baixar</a>
+  </div>
+  <div class="seek-row">
+    <input type="range" id="seek" min="0" max="0" value="0" step="0.1" aria-label="Posição da música">
+    <span class="time"><span id="t-cur">0:00</span> / <span id="t-dur">0:00</span></span>
+  </div>
+  <div class="controls">
+    <button class="ctl" id="btn-prev" aria-label="Anterior">⏮</button>
+    <button class="ctl play" id="btn-play" aria-label="Reproduzir">▶</button>
+    <button class="ctl" id="btn-next" aria-label="Próxima">⏭</button>
+    <div class="vol">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z"/></svg>
+      <input type="range" id="vol" min="0" max="1" step="0.01" value="0.9" aria-label="Volume">
+    </div>
+  </div>
+  <ul class="playlist" id="playlist"></ul>
+  <div class="empty" id="empty" hidden>Nenhuma música publicada ainda. Em breve.</div>
+  <audio id="audio"></audio>
+</div>
+</section>
+
 <section class="features" id="sobre">
 <article><div class="symbol">♫</div><h2>Reprodução musical</h2><p>Uma experiência de reprodução pensada para facilitar o acesso à sua música.</p></article>
 <article><div class="symbol">▤</div><h2>Letras</h2><p>Recursos de letras, incluindo sincronização quando houver dados compatíveis disponíveis.</p></article>
 <article><div class="symbol">☁</div><h2>Integrações</h2><p>Recursos opcionais de conta Google e backup, sujeitos às permissões concedidas pelo usuário.</p></article>
 </section>
-<section class="contact"><h2>Precisa de ajuda?</h2><p>Entre em contato com o desenvolvedor:</p><a href="mailto:davibn000@gmail.com">davibn000@gmail.com</a></section>
+
+<section class="app-dl" id="app">
+<div class="panel">
+  <div>
+    <h2>Radby Sounds para Android</h2>
+    <p>Biblioteca local, entrada com Google e backup no Google Drive.</p>
+    <div class="meta">Versão 2.0.0 • Android 8.0+ • 5,5 MB</div>
+  </div>
+  <a class="button primary" href="https://raw.githubusercontent.com/davibezerranunes-lab/radby-sounds-site/main/radby-sounds.apk" download>Baixar aplicativo</a>
+</div>
+</section>
+
+<section class="faq" id="faq">
+<h2>Perguntas frequentes</h2>
+<details><summary>O web player é grátis?</summary><p>Sim. Ouvir e baixar as faixas publicadas aqui não tem custo nem cadastro.</p></details>
+<details><summary>Preciso instalar algo para ouvir?</summary><p>Não. O player roda direto no navegador — computador ou celular, sem aplicativo e sem conta.</p></details>
+<details><summary>Como baixo uma música?</summary><p>Clique em <b>Baixar</b> ao lado da faixa na playlist, ou no botão Baixar do player. O arquivo vai direto para o seu dispositivo.</p></details>
+<details><summary>Qual a diferença entre o site e o app?</summary><p>O site toca as faixas publicadas aqui. O aplicativo Android trabalha com a sua biblioteca local, entrada com Google e backup no Google Drive.</p></details>
+<details><summary>O app Android é gratuito?</summary><p>Sim, a versão publicada é gratuita. Requer Android 8.0 ou superior.</p></details>
+</section>
 </main>
-<footer><span>© <span id="year"></span> Radby Sounds</span><div><a href="privacy.html">Privacidade</a><a href="terms.html">Termos</a></div></footer>
+<footer><span>© <span id="year"></span> Radby Sounds</span><div><a href="#player">Ouvir</a><a href="privacy.html">Privacidade</a><a href="terms.html">Termos</a></div></footer>
 <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
+<script src="assets/player.js" defer></script>
 </body></html>
