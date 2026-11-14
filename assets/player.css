@@ -5,6 +5,7 @@
 .player-section h2 span{color:#a894ff}
 .player{padding:0;overflow:hidden;position:relative;min-height:340px}
 .gate{position:absolute;inset:0;z-index:6;background:#141421f5;backdrop-filter:blur(7px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;text-align:center;padding:34px 22px}
+.gate[hidden]{display:none}
 .gate h3{margin:4px 0 0;font-size:19px}
 .gate p{margin:0;color:#8f8aa6;font-size:13px}
 .gate input{padding:13px 18px;border-radius:11px;border:1px solid #ffffff2b;background:#0b0b14;color:#fff;font-size:16px;width:230px;text-align:center;letter-spacing:.18em}
