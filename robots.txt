@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://radby-sounds.web.app/sitemap.xml
