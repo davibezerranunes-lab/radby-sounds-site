@@ -11,7 +11,7 @@
   const gate = el("gate"), gateCode = el("gate-code"), gateBtn = el("gate-btn"), gateErr = el("gate-err");
 
   const STORE_KEY = "radby_unlocked";
-  let tracks = [], index = -1, playing = false, started = false, accessCode = "";
+  let tracks = [], index = -1, playing = false, started = false;
 
   const ICON_PLAY = "▶", ICON_PAUSE = "❚❚";
 
@@ -96,19 +96,96 @@
     load(0, false);
   }
 
+  const API_KEY = "AIzaSyCH3yb01MGEH3Eku2lUZIp6_eedA9R_D2Y";
+  const CODES_URL =
+    "https://firestore.googleapis.com/v1/projects/radby-sounds/databases/(default)/documents/codes/";
+
+  function gateError(msg) {
+    gateErr.textContent = msg;
+    gateErr.hidden = false;
+    gate.classList.remove("shake");
+    void gate.offsetWidth;
+    gate.classList.add("shake");
+    gateCode.focus();
+  }
+
+  function setBusy(busy) {
+    gateBtn.disabled = busy;
+    gateBtn.textContent = busy ? "Verificando..." : "Entrar";
+  }
+
+  function consume(code) {
+    const now = new Date().toISOString().replace(/\.\d{3}Z$/, "Z");
+    const url =
+      CODES_URL + encodeURIComponent(code) +
+      "?key=" + API_KEY +
+      "&currentDocument.exists=true" +
+      "&updateMask.fieldPaths=used&updateMask.fieldPaths=usedAt&updateMask.fieldPaths=usedBy";
+    return fetch(url, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fields: {
+          used: { booleanValue: true },
+          usedAt: { timestampValue: now },
+          usedBy: { stringValue: "site" }
+        }
+      })
+    });
+  }
+
+  function inspect(code) {
+    return fetch(CODES_URL + encodeURIComponent(code) + "?key=" + API_KEY)
+      .then((r) => {
+        if (r.status === 404) throw { kind: "invalid" };
+        if (!r.ok) throw { kind: "net" };
+        return r.json();
+      })
+      .then((doc) => {
+        const used = !!(doc.fields && doc.fields.used && doc.fields.used.booleanValue);
+        if (used) throw { kind: "used" };
+        return consume(code);
+      })
+      .then((r) => {
+        if (r.ok) return;
+        // corrida (403/409) ou máscara recusada: relê o estado real
+        if (r.status === 403 || r.status === 409 || r.status === 400) {
+          return fetch(CODES_URL + encodeURIComponent(code) + "?key=" + API_KEY)
+            .then((rr) => (rr.ok ? rr.json() : null))
+            .then((doc) => {
+              const used = !!(doc && doc.fields && doc.fields.used && doc.fields.used.booleanValue);
+              if (used) throw { kind: "used" };
+              throw { kind: "net" };
+            })
+            .catch((e) => { throw e && e.kind ? e : { kind: "net" }; });
+        }
+        throw { kind: "net" };
+      });
+  }
+
   function tryUnlock() {
-    const val = (gateCode.value || "").trim().toUpperCase();
-    if (val && val === accessCode.toUpperCase()) {
-      gateErr.hidden = true;
-      unlock();
-    } else {
-      gateErr.hidden = false;
-      gate.classList.remove("shake");
-      void gate.offsetWidth;
-      gate.classList.add("shake");
-      gateCode.value = "";
-      gateCode.focus();
+    const code = (gateCode.value || "").replace(/\s+/g, "");
+    if (!/^\d{6}$/.test(code)) {
+      gateError("Use exatamente 6 dígitos.");
+      return;
     }
+    gateErr.hidden = true;
+    setBusy(true);
+    inspect(code)
+      .then(() => {
+        setBusy(false);
+        try { localStorage.setItem(STORE_KEY, "1"); } catch (e) {}
+        unlock();
+      })
+      .catch((e) => {
+        setBusy(false);
+        const kind = (e && e.kind) || "net";
+        if (kind === "invalid") gateError("Código inválido.");
+        else if (kind === "used") gateError("Código já usado.");
+        else gateError("Sem conexão. Tente novamente.");
+        gateCode.value = "";
+        gateCode.focus();
+      });
   }
 
   gateBtn.addEventListener("click", tryUnlock);
@@ -119,10 +196,8 @@
     .then((r) => { if (!r.ok) throw 0; return r.json(); })
     .then((m) => {
       tracks = (m.tracks || []).filter((t) => t && t.file);
-      accessCode = String(m.access_code || "").trim();
       let unlocked = false;
-      if (!accessCode) unlocked = true;
-      else { try { unlocked = localStorage.getItem(STORE_KEY) === "1"; } catch (e) {} }
+      try { unlocked = localStorage.getItem(STORE_KEY) === "1"; } catch (e) {}
       if (unlocked) unlock();
       else gate.hidden = false;
     })
