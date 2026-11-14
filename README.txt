@@ -1,4 +1,4 @@
-RADBY SONDS — SITE PARA GITHUB PAGES
+RADBY SOUNDS — SITE PARA GITHUB PAGES
 
 CONTEÚDO
 - index.html: página inicial
@@ -8,7 +8,7 @@ CONTEÚDO
 
 PUBLICAÇÃO
 1. Extraia este ZIP no computador.
-2. Abra seu repositório GitHub (ex.: radby-sonds-site).
+2. Abra seu repositório GitHub (ex.: radby-sounds-site).
 3. Clique em Add file > Upload files.
 4. Envie os ARQUIVOS E PASTAS de dentro desta pasta extraída, não o ZIP.
    index.html precisa ficar na raiz do repositório.
@@ -16,7 +16,7 @@ PUBLICAÇÃO
 6. No GitHub, abra Settings > Pages.
 7. Em Build and deployment, selecione Deploy from a branch.
 8. Branch: main; pasta: /(root); clique Save.
-9. Aguarde a publicação. O endereço será https://SEU-USUARIO.github.io/radby-sonds-site/
+9. Aguarde a publicação. O endereço será https://SEU-USUARIO.github.io/radby-sounds-site/
 
 ANTES DE USAR NO GOOGLE OAUTH
 - Abra as páginas publicadas e confira se carregam.
