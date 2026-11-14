@@ -8,8 +8,10 @@
   const npTitle = el("np-title"), npArtist = el("np-artist"), npDl = el("np-dl");
   const btnPlay = el("btn-play"), btnPrev = el("btn-prev"), btnNext = el("btn-next");
   const vol = el("vol"), list = el("playlist"), empty = el("empty");
+  const gate = el("gate"), gateCode = el("gate-code"), gateBtn = el("gate-btn"), gateErr = el("gate-err");
 
-  let tracks = [], index = -1, playing = false;
+  const STORE_KEY = "radby_unlocked";
+  let tracks = [], index = -1, playing = false, started = false, accessCode = "";
 
   const ICON_PLAY = "▶", ICON_PAUSE = "❚❚";
 
@@ -83,13 +85,50 @@
   vol.addEventListener("input", () => { audio.volume = vol.value; });
   audio.volume = 0.9;
 
+  /* --- gate de acesso (codigo uma vez por navegador) --- */
+  function unlock() {
+    try { localStorage.setItem(STORE_KEY, "1"); } catch (e) {}
+    gate.hidden = true;
+    if (started) return;
+    started = true;
+    if (!tracks.length) { empty.hidden = false; return; }
+    renderList();
+    load(0, false);
+  }
+
+  function tryUnlock() {
+    const val = (gateCode.value || "").trim().toUpperCase();
+    if (val && val === accessCode.toUpperCase()) {
+      gateErr.hidden = true;
+      unlock();
+    } else {
+      gateErr.hidden = false;
+      gate.classList.remove("shake");
+      void gate.offsetWidth;
+      gate.classList.add("shake");
+      gateCode.value = "";
+      gateCode.focus();
+    }
+  }
+
+  gateBtn.addEventListener("click", tryUnlock);
+  gateCode.addEventListener("keydown", (e) => { if (e.key === "Enter") tryUnlock(); });
+
+  /* --- manifest --- */
   fetch("music/manifest.json")
     .then((r) => { if (!r.ok) throw 0; return r.json(); })
     .then((m) => {
       tracks = (m.tracks || []).filter((t) => t && t.file);
-      if (!tracks.length) { empty.hidden = false; return; }
-      renderList();
-      load(0, false);
+      accessCode = String(m.access_code || "").trim();
+      let unlocked = false;
+      if (!accessCode) unlocked = true;
+      else { try { unlocked = localStorage.getItem(STORE_KEY) === "1"; } catch (e) {} }
+      if (unlocked) unlock();
+      else gate.hidden = false;
     })
-    .catch(() => { empty.hidden = false; empty.textContent = "Não foi possível carregar as músicas."; });
+    .catch(() => {
+      gate.hidden = true;
+      empty.hidden = false;
+      empty.textContent = "Não foi possível carregar as músicas.";
+    });
 })();

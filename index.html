@@ -57,7 +57,15 @@
 <section class="player-section" id="player">
 <div class="eyebrow">WEB PLAYER</div>
 <h2>Ouça agora, <span>direto no site</span></h2>
-<div class="panel player">
+<div class="panel player" id="player-card">
+  <div class="gate" id="gate">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#a894ff" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.6" fill="#a894ff" stroke="none"/></svg>
+    <h3>Código de acesso</h3>
+    <p>Insira o código para ouvir e baixar as faixas.</p>
+    <input type="password" id="gate-code" placeholder="••••••" autocomplete="off" spellcheck="false">
+    <button id="gate-btn">Entrar</button>
+    <div class="gate-err" id="gate-err" hidden>Código incorreto. Tente novamente.</div>
+  </div>
   <div class="np">
     <div class="np-cover"></div>
     <div class="np-meta">
@@ -104,6 +112,7 @@
 
 <section class="faq" id="faq">
 <h2>Perguntas frequentes</h2>
+<details><summary>Preciso de código para ouvir?</summary><p>Sim. Insira o código de acesso uma vez — o navegador lembra dele e você ouve e baixa livremente depois.</p></details>
 <details><summary>O web player é grátis?</summary><p>Sim. Ouvir e baixar as faixas publicadas aqui não tem custo nem cadastro.</p></details>
 <details><summary>Preciso instalar algo para ouvir?</summary><p>Não. O player roda direto no navegador — computador ou celular, sem aplicativo e sem conta.</p></details>
 <details><summary>Como baixo uma música?</summary><p>Clique em <b>Baixar</b> ao lado da faixa na playlist, ou no botão Baixar do player. O arquivo vai direto para o seu dispositivo.</p></details>
