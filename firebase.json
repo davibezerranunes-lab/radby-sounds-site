@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": ["firebase.json", "**/.*", "**/*.apk"],
+    "headers": [
+      {
+        "source": "**/*.@(apk|zip)",
+        "headers": [
+          { "key": "Content-Disposition", "value": "attachment" }
+        ]
+      }
+    ]
+  }
+}
