@@ -26,7 +26,6 @@
 <link rel="icon" href="assets/favicon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="assets/player.css">
 
 <script type="application/ld+json">
 {
@@ -44,53 +43,14 @@
 </script>
 </head>
 <body>
-<header class="nav"><a class="brand" href="index.html"><img src="assets/logo.svg" alt="" width="38" height="38"><span>Radby <b>Sounds</b></span></a><nav><a href="#player">Ouvir</a><a href="#sobre">Sobre</a><a href="#app">App</a><a href="privacy.html">Privacidade</a><a href="terms.html">Termos</a></nav></header>
+<header class="nav"><a class="brand" href="index.html"><img src="assets/logo.svg" alt="" width="38" height="38"><span>Radby <b>Sounds</b></span></a><nav><a href="#sobre">Sobre</a><a href="#app">App</a><a href="privacy.html">Privacidade</a><a href="terms.html">Termos</a></nav></header>
 <main>
 <section class="hero">
 <div class="eyebrow">MÚSICA • DESCOBERTA • EXPERIÊNCIA</div>
 <h1>Seu som.<br><span>Sua experiência.</span></h1>
 <p>Conheça o Radby Sounds: ouça músicas direto aqui no navegador, faça download e leve o aplicativo Android com você.</p>
-<div class="actions"><a class="button primary" href="#player">Ouvir agora</a><a class="button secondary" href="radby-sonds-ultimate-version2.zip" download>Baixar aplicativo</a><a class="button secondary" href="#sobre">Conhecer o app</a></div>
+<div class="actions"><a class="button secondary" href="radby-sonds-ultimate-version2.zip" download>Baixar aplicativo</a><a class="button secondary" href="#sobre">Conhecer o app</a></div>
 <div class="note">Web player gratuito — sem cadastro. O aplicativo Android requer Android 8.0 ou superior.</div>
-</section>
-
-<section class="player-section" id="player">
-<div class="eyebrow">WEB PLAYER</div>
-<h2>Ouça agora, <span>direto no site</span></h2>
-<div class="panel player" id="player-card">
-  <div class="gate" id="gate">
-    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#a894ff" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.6" fill="#a894ff" stroke="none"/></svg>
-    <h3>Código de acesso</h3>
-    <p>Insira o código para ouvir e baixar as faixas.</p>
-    <input type="text" id="gate-code" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="off" spellcheck="false">
-    <button id="gate-btn">Entrar</button>
-    <div class="gate-err" id="gate-err" hidden>Código incorreto. Tente novamente.</div>
-  </div>
-  <div class="np">
-    <div class="np-cover"></div>
-    <div class="np-meta">
-      <div class="np-title" id="np-title">Radby Sounds</div>
-      <div class="np-artist" id="np-artist">Selecione uma faixa</div>
-    </div>
-    <a class="np-dl" id="np-dl" href="music/demo.wav" download>Baixar</a>
-  </div>
-  <div class="seek-row">
-    <input type="range" id="seek" min="0" max="0" value="0" step="0.1" aria-label="Posição da música">
-    <span class="time"><span id="t-cur">0:00</span> / <span id="t-dur">0:00</span></span>
-  </div>
-  <div class="controls">
-    <button class="ctl" id="btn-prev" aria-label="Anterior">⏮</button>
-    <button class="ctl play" id="btn-play" aria-label="Reproduzir">▶</button>
-    <button class="ctl" id="btn-next" aria-label="Próxima">⏭</button>
-    <div class="vol">
-      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z"/></svg>
-      <input type="range" id="vol" min="0" max="1" step="0.01" value="0.9" aria-label="Volume">
-    </div>
-  </div>
-  <ul class="playlist" id="playlist"></ul>
-  <div class="empty" id="empty" hidden>Nenhuma música publicada ainda. Em breve.</div>
-  <audio id="audio"></audio>
-</div>
 </section>
 
 <section class="features" id="sobre">
@@ -120,7 +80,6 @@
 <details><summary>O app Android é gratuito?</summary><p>Sim, a versão publicada é gratuita. Requer Android 8.0 ou superior.</p></details>
 </section>
 </main>
-<footer><span>© <span id="year"></span> Radby Sounds</span><div><a href="#player">Ouvir</a><a href="privacy.html">Privacidade</a><a href="terms.html">Termos</a></div></footer>
+<footer><span>© <span id="year"></span> Radby Sounds</span><div><a href="privacy.html">Privacidade</a><a href="terms.html">Termos</a></div></footer>
 <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
-<script src="assets/player.js?v=2100" defer></script>
 </body></html>
