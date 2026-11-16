@@ -25,20 +25,34 @@
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/style.css?v=3">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Radby Sounds",
-  "operatingSystem": "Android",
-  "applicationCategory": "MultimediaApplication",
-  "softwareVersion": "2.1.0",
-  "url": "https://radby-sounds.web.app/",
-  "image": "https://radby-sounds.web.app/assets/og.png",
-  "description": "Aplicativo de musica com entrada com Google e backup no Google Drive. Web player tambem disponivel no site.",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Radby Sounds",
+      "alternateName": ["RadbySounds", "Radby Sounds App"],
+      "url": "https://radby-sounds.web.app/"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Radby Sounds",
+      "operatingSystem": "Android",
+      "applicationCategory": "MultimediaApplication",
+      "softwareVersion": "2.1.0",
+      "url": "https://radby-sounds.web.app/",
+      "image": "https://radby-sounds.web.app/assets/og.png",
+      "description": "Radby Sounds é um aplicativo de música com biblioteca local, entrada com Google e backup no Google Drive, além de web player no navegador.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      }
+    }
+  ]
 }
 </script>
 </head>
@@ -47,7 +61,7 @@
 <main>
 <section class="hero">
 <div class="eyebrow">MÚSICA • DESCOBERTA • EXPERIÊNCIA</div>
-<h1>Seu som.<br><span>Sua experiência.</span></h1>
+<h1>Radby Sounds:<br><span>Seu som. Sua experiência.</span></h1>
 <p>Conheça o Radby Sounds: ouça músicas direto aqui no navegador, faça download e leve o aplicativo Android com você.</p>
 <div class="actions"><a class="button secondary" href="radby-sonds-ultimate-version2.zip" download>Baixar aplicativo</a><a class="button secondary" href="#sobre">Conhecer o app</a></div>
 <div class="note">Web player gratuito — sem cadastro. O aplicativo Android requer Android 8.0 ou superior.</div>
@@ -64,7 +78,7 @@
   <div>
     <h2>Radby Sounds para Android</h2>
     <p>Biblioteca local, entrada com Google e backup no Google Drive.</p>
-    <div class="meta">Versão 2.1.0 • Android 8.0+ • 42,7 MB</div>
+    <div class="meta">Versão 2.1.0 • Android 8.0+ • 42,8 MB</div>
   </div>
   <a class="button primary" href="radby-sonds-ultimate-version2.zip" download>Baixar aplicativo</a>
 </div>
